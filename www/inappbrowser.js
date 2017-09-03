@@ -21,9 +21,13 @@
 
 (function () {
     // special patch to correctly work on Ripple emulator (CB-9760)
-    if (window.parent && !!window.parent.ripple) { // https://gist.github.com/triceam/4658021
-        module.exports = window.open.bind(window); // fallback to default window.open behaviour
-        return;
+    try {
+        if (window.parent && !!window.parent.ripple) { // https://gist.github.com/triceam/4658021
+            module.exports = window.open.bind(window); // fallback to default window.open behaviour
+            return;
+        }
+    } catch (e) {
+
     }
 
     var exec = require('cordova/exec');
